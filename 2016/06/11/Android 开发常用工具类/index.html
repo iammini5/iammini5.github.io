@@ -1,0 +1,1007 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="常用工具类," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="后续将封装更多的工具类，将尝试封装一些跟View相关的工具类，像Adapter….,功能将不断完善，同时感谢每一位开源者的贡献，本工具类参考了很多网上工具类。封装一些常用的工具类，目的是让程序猿有更多自由时间，可以去看电影，撩妹纸。
+1.由于水平有限,难免有Bug,如果有任何问题,请反馈 xyb520zly@gmail.com2.如果你有更好的代码,请提交Pull request.3.感谢各位的s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 开发常用工具类">
+<meta property="og:url" content="http://yoursite.com/2016/06/11/Android 开发常用工具类/index.html">
+<meta property="og:site_name" content="xybCoder博客">
+<meta property="og:description" content="后续将封装更多的工具类，将尝试封装一些跟View相关的工具类，像Adapter….,功能将不断完善，同时感谢每一位开源者的贡献，本工具类参考了很多网上工具类。封装一些常用的工具类，目的是让程序猿有更多自由时间，可以去看电影，撩妹纸。
+1.由于水平有限,难免有Bug,如果有任何问题,请反馈 xyb520zly@gmail.com2.如果你有更好的代码,请提交Pull request.3.感谢各位的s">
+<meta property="og:updated_time" content="2016-06-11T05:43:08.977Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android 开发常用工具类">
+<meta name="twitter:description" content="后续将封装更多的工具类，将尝试封装一些跟View相关的工具类，像Adapter….,功能将不断完善，同时感谢每一位开源者的贡献，本工具类参考了很多网上工具类。封装一些常用的工具类，目的是让程序猿有更多自由时间，可以去看电影，撩妹纸。
+1.由于水平有限,难免有Bug,如果有任何问题,请反馈 xyb520zly@gmail.com2.如果你有更好的代码,请提交Pull request.3.感谢各位的s">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 6263412572838430000,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Android 开发常用工具类 | xybCoder博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?2ffc178452e1fcf54c288f14f8c972a1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">xybCoder博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-android">
+          <a href="/ANDROID" rel="section">
+            
+            Android开源库
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-ios">
+          <a href="/IOS" rel="section">
+            
+            IOS开源库
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Android 开发常用工具类
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-11T13:05:57+08:00" content="2016-06-11">
+              2016-06-11
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/11/Android 开发常用工具类/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/11/Android 开发常用工具类/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv">本文总阅读量
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>后续将封装更多的工具类，将尝试封装一些跟View相关的工具类，像Adapter….,功能将不断完善，同时感谢每一位开源者的贡献，本工具类参考了很多网上工具类。<br>封装一些常用的工具类，目的是让程序猿有更多自由时间，可以去看电影，撩妹纸。</p>
+<p>1.由于水平有限,难免有Bug,如果有任何问题,请反馈 xyb520zly@gmail.com<br>2.如果你有更好的代码,请提交Pull request.<br>3.感谢各位的star,你们的支持是我继续前进的动力.<br>4.项目地址：<a href="https://github.com/xybCoder/AndroidCommon" target="_blank" rel="external">https://github.com/xybCoder/AndroidCommon</a></p>
+<h2 id="SPUtil-SharedPreferences工具"><a href="#SPUtil-SharedPreferences工具" class="headerlink" title="SPUtil   SharedPreferences工具"></a>SPUtil   SharedPreferences工具</h2><ol>
+<li>getSpName(Context context)  获取SharedPreferences存储在sd卡中的文件名字</li>
+<li>setSP(Context context, String key, Object object) 根据传入不同参数类型调用不同的保存方法</li>
+<li>getSP(Context context, String key, Object defaultObject) 根据默认值得到保存的数据的具体类型，然后调用对应方法获取值</li>
+<li>removeSP(Context context, String key) 移除某个key值已经对应的值</li>
+<li>clearAllSP(Context context) 清除所有SharedPreferences数据</li>
+<li>contains(Context context, String key) 查询某个key是否存在</li>
+<li>getAllKeyValue(Context context) 返回所有的键值对</li>
+</ol>
+<h2 id="DateUtil-时间工具"><a href="#DateUtil-时间工具" class="headerlink" title="DateUtil 时间工具"></a>DateUtil 时间工具</h2><p> DateUtils类里面重载方法比较多</p>
+<ol>
+<li>str2Date(…) 将时间字符串转换成Date</li>
+<li>date2Str(…) 将Date转换成时间字符串</li>
+<li>str2Calendar(…) 将时间字符串转换成Calendar</li>
+<li>getCurDateStr(…) 获得当前日期的字符串</li>
+<li>getMillon(…) 获得当前日期的字符串,精确到秒</li>
+<li>strAddOneDay(…) 实现加一天的功能，返回的格式为String</li>
+<li>strDecreaseOneDay(…) 实现减一天的功能，返回的格式为String</li>
+<li>getLastdayDate(…) 获取昨天 Data</li>
+<li>getNextdayDate(…) 获取明天Date</li>
+<li>isTheSameDay(…) 判断是否是同一天</li>
+</ol>
+<h2 id="LogUtil-日志工具"><a href="#LogUtil-日志工具" class="headerlink" title="LogUtil 日志工具"></a>LogUtil 日志工具</h2><ol>
+<li>init 初始化日志开关和TAG(默认日志为开,TAG为”ghost”)</li>
+<li>v VERBOSE</li>
+<li>d DEBUG</li>
+<li>i INFO</li>
+<li>w WARN</li>
+<li>e ERROR</li>
+<li>a ASSERT</li>
+<li>json 输出json</li>
+<li>xml 输出xml<h2 id="StringUtil-字符串工具"><a href="#StringUtil-字符串工具" class="headerlink" title="StringUtil 字符串工具"></a>StringUtil 字符串工具</h2></li>
+<li>isEmpty(CharSequence str) 判断是否是空字符串、null、””</li>
+<li>subStringOmit(String subject, int size) 字符串截取到指定长度size+…的形式</li>
+<li>getLimitLengthStr(String str, int len, String symbol)截取字符串　超出的字符用symbol代替</li>
+<li>getStrLength(String str)获取字符串的实际长度（考虑了汉字的情况一个汉字按照俩个字符算）</li>
+<li>getHideEmailPrefix(String email)隐藏邮件地址前缀</li>
+<li>Str2List(String str,String symbol)字符串分割成一个数组</li>
+<li>List2Str(List list, String symbol)将list 用传入的分隔符组装为String</li>
+<li>replaceBracketStr(String str) 全角括号转为半角</li>
+<li>full2Half(String str)全角字符变半角字符</li>
+<li>replaceBlank(String str)去除字符串中的空格、回车、换行符、制表符</li>
+<li>str2Unicode(String string)字符串转换unicode</li>
+<li>unicode2Str(String unicode)unicode 转字符串</li>
+<li>trimPunct(String str)删除所有的标点符号</li>
+<li>SimilarDegree(String str1, String str2)字符串相似度比较</li>
+<li>getStrEncode(String str)获取字符串的编码</li>
+<li>countSubStr(String string, String str)获取字符串str在String中出现的次数</li>
+<li>nullToEmptyStr(Object str)空对象转化为空串</li>
+<li>capitalizeFirstLetter(String str)首字母大写</li>
+<li><p>utf8Encode(String str)str使用UTF-8编码</p>
+<h2 id="GsonUtil-Gson工具"><a href="#GsonUtil-Gson工具" class="headerlink" title="GsonUtil Gson工具"></a>GsonUtil Gson工具</h2></li>
+<li>object2Json(…)object转json</li>
+<li>json2List(String jsonStr) jsonStr转List</li>
+<li>json2Map(String jsonStr)jsonStr转Map</li>
+<li>json2Bean(String jsonStr, Class&lt;?&gt; cl)  jsonStr转Bean</li>
+<li>getJsonValue(String jsonStr, String key) 获取key值</li>
+</ol>
+<h2 id="JsonUtil-Json工具"><a href="#JsonUtil-Json工具" class="headerlink" title="JsonUtil Json工具"></a>JsonUtil Json工具</h2><ol>
+<li>getLong(String jsonData, String key, long defaultValue)</li>
+<li>getInt(String jsonData, String key, int defaultValue)</li>
+<li>getDouble(String jsonData, String key, Double defaultValue)</li>
+<li>getString(String jsonData, String key, String defaultValue)</li>
+<li>getStringArray(String jsonData, String key, String[] defaultValue)</li>
+<li>getStringList(String jsonData, String key, List<string> defaultValue)</string></li>
+<li>getJSONArray(String jsonData, String key, JSONArray defaultValue)</li>
+<li>getBoolean(String jsonData, String key, Boolean defaultValue)</li>
+<li>getMap(String jsonData, String key)</li>
+</ol>
+<h2 id="DeviceUtil-设备信息工具"><a href="#DeviceUtil-设备信息工具" class="headerlink" title="DeviceUtil  设备信息工具"></a>DeviceUtil  设备信息工具</h2><ol>
+<li>getAndroidID(…) 获取AndroidID</li>
+<li>getIMEI(…) 获取设备IMEI码</li>
+<li>getIMSI(…) 获取设备IMSI码</li>
+<li>getWifiMacAddr(…) 获取MAC地址</li>
+<li>getIP(…) 获取网络IP地址(优先获取wifi地址)</li>
+<li>getWifiIP(…) 获取WIFI连接下的ip地址</li>
+<li>getGPRSIP(…) 获取GPRS连接下的ip地址</li>
+<li>getSerial(…) 获取设备序列号</li>
+<li>getSIMSerial(…) 获取SIM序列号</li>
+<li>getPhoneNumber(…) 获取手机号码(未获取成功)</li>
+<li>getMNC(…) 获取网络运营商 46000,46002,46007 中国移动,46001 中国联通,46003 中国电信</li>
+<li>getCarrier(…) 获取网络运营商：中国电信,中国移动,中国联通</li>
+<li>getModel(…) 获取硬件型号</li>
+<li>getBuildBrand(…) 获取编译厂商</li>
+<li>getBuildHost(…) 获取编译服务器主机</li>
+<li>getBuildTags(…) 获取描述Build的标签</li>
+<li>getBuildTime(…) 获取系统编译时间</li>
+<li>getBuildUser(…) 获取系统编译作者</li>
+<li>getBuildVersionRelease(…) 获取编译系统版本(5.1)</li>
+<li>getBuildVersionCodename(…) 获取开发代号</li>
+<li>getBuildVersionIncremental(…) 获取源码控制版本号</li>
+<li>getBuildVersionSDK(…) 获取编译的SDK</li>
+<li>getBuildID(…) 获取修订版本列表(LMY47D)</li>
+<li>getSupportedABIS(…) CPU指令集</li>
+<li>getManufacturer(…) 获取硬件制造厂商</li>
+<li>getBootloader(…) 获取系统启动程序版本号</li>
+<li>getScreenDisplayID(…)</li>
+<li>getDisplayVersion(…) 获取系统版本号</li>
+<li>getLanguage(…) 获取语言</li>
+<li>getCountry(…) 获取国家</li>
+<li>getOSVersion(…) 获取系统版本:5.1.1</li>
+<li>getGSFID(…) 获取GSF序列号</li>
+<li>getBluetoothMAC(…) 获取蓝牙地址</li>
+<li>getPsuedoUniqueID(…) Android设备物理唯一标识符</li>
+<li>getFingerprint(…)构建标识,包括brand,name,device,version.release,id,version.incremental,type,tags这些信息</li>
+<li>getHardware(…) 获取硬件信息</li>
+<li>getProduct(…) 获取产品信息</li>
+<li>getDevice(…) 获取设备信息</li>
+<li>getBoard(…) 获取主板信息</li>
+<li>getRadioVersion(…) 获取基带版本(无线电固件版本 Api14以上)</li>
+<li>getUA(…) 获取的浏览器指纹(User-Agent)</li>
+<li>getDensity(…) 获取得屏幕密度</li>
+<li>getGoogleAccounts(…) 获取google账号</li>
+</ol>
+<h2 id="AppUtils-APP工具类"><a href="#AppUtils-APP工具类" class="headerlink" title="AppUtils   APP工具类"></a>AppUtils   APP工具类</h2><ol>
+<li>getAppName(…) 获取应用名称</li>
+<li>getAppIcon(…) 获取应用图标</li>
+<li>getAppDate(…) 获取应用更新日期</li>
+<li>getAppSize(…) 获取应用大小</li>
+<li>getAppApk(…) 获取应用apk文件</li>
+<li>getAppVersionName(…) 获取应用版本名称</li>
+<li>getAppVersionCode(…) 获取应用版本号</li>
+<li>getAppInstaller(…) 获取应用的安装市场</li>
+<li>getAppPackageName(…) 获取应用包名</li>
+<li>hasPermission(…) 是否有权限</li>
+<li>isInstalled(…) 应用是否安装</li>
+<li>installApk(…) 安装应用</li>
+<li>uninstallApk(…) 卸载应用</li>
+<li>isSystemApp(…) 是否是系统应用</li>
+<li>isServiceRunning(…) 服务是否在运行</li>
+<li>stopRunningService(…) 停止服务</li>
+<li>getNumCores(…) 获取Cpu内核数</li>
+<li>killProcesses(…) 结束进程</li>
+<li>runScript(…) 运行脚本</li>
+<li>getRootPermission(…) 获得root权限</li>
+</ol>
+<h2 id="BitmapUtil-bitmap的工具类"><a href="#BitmapUtil-bitmap的工具类" class="headerlink" title="BitmapUtil bitmap的工具类"></a>BitmapUtil bitmap的工具类</h2><ol>
+<li>bytes2Bitmap(…) Byte[]转Bitmap</li>
+<li>bitmap2Bytes(…) Bitmap转Byte[]</li>
+<li>bitmap2Drawable(…) Bitmap转Drawable</li>
+<li>drawable2Bitmap(…)Drawable转Bitmap</li>
+<li>bitmap2File(…) bitmap转file</li>
+<li>rotateBitmap(Bitmap bmp, int degrees) 旋转图像</li>
+<li>getBitmapSize(Bitmap bitmap)获取bitmap的大小</li>
+<li>getBestOptions(…)计算目标宽度，目标高度，inSampleSize</li>
+<li>calculateBestInSampleSize(…)计算Bitmap最适合大小</li>
+<li>createScaleBitmap(…)进行缩放，得到符合标准的bitmap</li>
+<li>getRoundedCornerBitmap(Bitmap bitmap, float roundPx)获取圆角图片</li>
+<li>compressImage(Bitmap image)质量压缩</li>
+<li>Bitmap compressFixBitmap(Bitmap bitMap, int outWidth, int outHeight)固定大小质量压缩</li>
+</ol>
+<h2 id="NetUtils-网络工具"><a href="#NetUtils-网络工具" class="headerlink" title="NetUtils 网络工具"></a>NetUtils 网络工具</h2><ol>
+<li>getNetworkType 获取网络类型</li>
+<li>getNetworkTypeName 获取网络名称</li>
+<li>isConnected 检查网络状态</li>
+<li>isNetworkAvailable 网络可用性</li>
+<li>isWiFi 是否wifi</li>
+<li>openNetSetting 打开网络设置界面</li>
+<li>setWifiEnabled 设置wifi状态</li>
+<li>getWifiScanResults 获取wifi列表</li>
+<li>getScanResultsByBSSID 过滤扫描结果</li>
+<li>getWifiConnectionInfo 获取wifi连接信息</li>
+</ol>
+<h2 id="SystemUtils-系统工具"><a href="#SystemUtils-系统工具" class="headerlink" title="SystemUtils 系统工具"></a>SystemUtils 系统工具</h2><ol>
+<li>getDefaultThreadPoolSize(…)获取默认线程池大小</li>
+<li>sendSMS(…) 调用系统发送短信</li>
+<li>forwardToDial(…) 跳转到拨号</li>
+<li>callPhone(…) 直接呼叫号码</li>
+<li>sendMail(…) 发邮件</li>
+<li>hideKeyBoard(…) 隐藏系统键盘</li>
+<li>isBackground(…) 判断当前应用程序是否后台运行</li>
+<li>isSleeping(…) 判断手机是否处理睡眠</li>
+<li>isRooted(…)是否root</li>
+<li>isRunningOnEmulator(…) 当前设备是否是模拟器</li>
+<li>goHome(…) 返回Home</li>
+<li>getDeviceUsableMemory(…) 获取设备可用空间</li>
+<li>gc(…) 清理后台进程和服务</li>
+<li>createDeskShortCut(…) 创建桌面快捷方式</li>
+<li>createShortcut(…) 创建快捷方式</li>
+<li>shareText(…) 分享文本</li>
+<li>shareFile(…) 分享文件(此方法是调用FileUtils.shareFile中的方式)</li>
+<li>getShareTargets(…) 获取可接受分享的应用</li>
+<li>getCurrentLanguage(…)获取当前系统的语言</li>
+<li>isGpsEnabled GPS(…)是否打开</li>
+<li>showSoftInputMethod(Context context, EditText editText) 显示软键盘</li>
+<li>closeSoftInputMethod(…) 关闭软键盘</li>
+<li>showSoftInput(Context context) 显示软键盘</li>
+<li>closeSoftInput(…) 关闭软键盘</li>
+</ol>
+<h2 id="FileUtil-文件工具类"><a href="#FileUtil-文件工具类" class="headerlink" title="FileUtil  文件工具类"></a>FileUtil  文件工具类</h2><ol>
+<li>countLines(File file)获取文件的行数</li>
+<li>List<string> Lines(File file)以列表的方式获取文件的所有行</string></li>
+<li>appendLine(File file, String str)在文件末尾追加一行</li>
+<li>cleanFile(File file) 快速清空一个超大的文件</li>
+<li>mimeType(String file)获取文件的Mime类型</li>
+<li>fileType(File file)获取文件的类型</li>
+<li>modifyTime(File file)获取文件最后的修改时间</li>
+<li>hash(File file)获取文件的Hash</li>
+<li>copy(…)复制文件</li>
+<li>copyDir(…)复制目录</li>
+<li>createPaths(String paths)创建多级目录</li>
+<li>deleteFile(File file)删除一个文件</li>
+<li>deleteFile(String path)删除文件</li>
+<li>deleteDir(File file)删除一个目录</li>
+<li>searchFile(File dirPath, String fileName)在指定的目录下搜寻文个文件</li>
+<li>writeFile(…)将内容写入文件</li>
+<li>getFileName(String filePath)获取文件名</li>
+<li>getFolderName(String filePath)获取路径名</li>
+<li>getFileSize(String path)获取文件大小</li>
+<li>isFileExist(String filePath)判断文件是否存在</li>
+<li>openVideo(Context mContext, String videoPath)打开video</li>
+</ol>
+<h2 id="VerificationUtil-验证工具类"><a href="#VerificationUtil-验证工具类" class="headerlink" title="VerificationUtil  验证工具类"></a>VerificationUtil  验证工具类</h2><ol>
+<li><p>matcherRealName(String value) 判断姓名格式</p>
+<blockquote>
+<p>1.真实姓名可以是汉字,也可以是字母,但是不能两者都有,也不能包含任何符号和数字<br>2.如果是英文名,可以允许英文名字中出现空格<br>3.英文名的空格可以是多个,但是不能连续出现多个<br>4.汉字不能出现空格</p>
+</blockquote>
+</li>
+<li><p>matcherPhoneNum(String value) 判断手机号格式 (匹配11数字,并且13-19开头)</p>
+</li>
+<li>matcherAccount(String value) 判断账号格式 (4-20位字符)</li>
+<li>matcherPassword(String value) 判断密码格式 (6-12位字母或数字)</li>
+<li>matcherPassword2(String value) 判断密码格式(6-12位字母或数字,必须同时包含字母和数字)</li>
+<li>matcherEmail(String value) 判断邮箱格式</li>
+<li>matcherIP(String value) 判断IP地址</li>
+<li>matcherUrl(String value) 判断URL (http,https,ftp)</li>
+<li>matcherVehicleNumber(String value) 判断中国民用车辆号牌</li>
+<li>matcherIdentityCard(String value) 判断身份证号码格式</li>
+<li>isNumeric(String value) 是否数值型</li>
+<li>testRegex(String regex, String inputValue) 是否匹配正则</li>
+<li>checkPostcode(String postcode) 匹配中国邮政编码</li>
+</ol>
+<h2 id="ZipUtil-压缩文档相关的工具类"><a href="#ZipUtil-压缩文档相关的工具类" class="headerlink" title="ZipUtil 压缩文档相关的工具类"></a>ZipUtil 压缩文档相关的工具类</h2><h2 id="WindowUtil-与屏幕相关的工具类"><a href="#WindowUtil-与屏幕相关的工具类" class="headerlink" title="WindowUtil 与屏幕相关的工具类"></a>WindowUtil 与屏幕相关的工具类</h2><h2 id="ValidUtil-提供一些对象有效性校验封装类"><a href="#ValidUtil-提供一些对象有效性校验封装类" class="headerlink" title="ValidUtil 提供一些对象有效性校验封装类"></a>ValidUtil 提供一些对象有效性校验封装类</h2><h2 id="StreamUtil-流相关的操作方法封装"><a href="#StreamUtil-流相关的操作方法封装" class="headerlink" title="StreamUtil 流相关的操作方法封装"></a>StreamUtil 流相关的操作方法封装</h2><h2 id="EncryptUtil-常用加密工具类"><a href="#EncryptUtil-常用加密工具类" class="headerlink" title="EncryptUtil　常用加密工具类"></a>EncryptUtil　常用加密工具类</h2><h2 id="ClassUtil-反射相关的一些工具类"><a href="#ClassUtil-反射相关的一些工具类" class="headerlink" title="ClassUtil 反射相关的一些工具类"></a>ClassUtil 反射相关的一些工具类</h2><h2 id="ChinesUtil-中文相关的操作封装类"><a href="#ChinesUtil-中文相关的操作封装类" class="headerlink" title="ChinesUtil 中文相关的操作封装类"></a>ChinesUtil 中文相关的操作封装类</h2><h2 id="CharsetUtil-编码相关的封装类"><a href="#CharsetUtil-编码相关的封装类" class="headerlink" title="CharsetUtil 编码相关的封装类"></a>CharsetUtil 编码相关的封装类</h2><h2 id="SingletonUtil-单例工具封装类"><a href="#SingletonUtil-单例工具封装类" class="headerlink" title="SingletonUtil　单例工具封装类"></a>SingletonUtil　单例工具封装类</h2><h2 id="ResourceUtil-获取-Assets，Raw-文件封装类"><a href="#ResourceUtil-获取-Assets，Raw-文件封装类" class="headerlink" title="ResourceUtil 获取 Assets，Raw 文件封装类"></a>ResourceUtil 获取 Assets，Raw 文件封装类</h2><h2 id="ScreenUtil-用单位转换的辅助类"><a href="#ScreenUtil-用单位转换的辅助类" class="headerlink" title="ScreenUtil 用单位转换的辅助类"></a>ScreenUtil 用单位转换的辅助类</h2>
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/常用工具类/" rel="tag">#常用工具类</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/02/EventBus源码解析/" rel="next" title="EventBus源码解析">
+                <i class="fa fa-chevron-left"></i> EventBus源码解析
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/06/25/Retrofit深入浅出/" rel="prev" title="Retrofit2 深入浅出解析">
+                Retrofit2 深入浅出解析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  <p>热评文章</p>
+  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/06/11/Android 开发常用工具类/"
+           data-title="Android 开发常用工具类" data-url="http://yoursite.com/2016/06/11/Android 开发常用工具类/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="xybCoder" />
+          <p class="site-author-name" itemprop="name">xybCoder</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">37</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xybCoder" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/p/1005053745997724/home?is_all=1" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element">
+            <div class="links-of-blogroll-title">
+              <i class="fa fa-globe fa-fw"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.woyaovpn.net/index.shtml/" title="51VPN" target="_blank">51VPN</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://androiddevtools.cn/" title="DevTools" target="_blank">DevTools</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.materialpalette.com/" title="MDColor" target="_blank">MDColor</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.daimajia.com/" title="代码家" target="_blank">代码家</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://github.com/lzyzsd/" title="hi大头鬼hi" target="_blank">hi大头鬼hi</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.zhaiyifan.cn/" title="翟一帆" target="_blank">翟一帆</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://liaohuqiu.net/" title="秋百万" target="_blank">秋百万</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://drakeet.me/" title="Drakeet博客" target="_blank">Drakeet博客</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.trinea.cn/" title="Trinea" target="_blank">Trinea</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://p.codekk.com/" title="CodeKK" target="_blank">CodeKK</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/eclipsexys/" title="Tomcat的猫" target="_blank">Tomcat的猫</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.race604.com/" title="android笔记" target="_blank">android笔记</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.androidperformance.com/" title="Gracker" target="_blank">Gracker</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://yanghui.name/" title="杨辉" target="_blank">杨辉</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://hujiaweibujidao.github.io/" title="五道口宅男" target="_blank">五道口宅男</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/singwhatiwanna/" title="任玉刚博客" target="_blank">任玉刚博客</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.fangjie.info/" title="方杰博客" target="_blank">方杰博客</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.isming.me/" title="码农明明桑" target="_blank">码农明明桑</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SPUtil-SharedPreferences工具"><span class="nav-number">1.</span> <span class="nav-text">SPUtil   SharedPreferences工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DateUtil-时间工具"><span class="nav-number">2.</span> <span class="nav-text">DateUtil 时间工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LogUtil-日志工具"><span class="nav-number">3.</span> <span class="nav-text">LogUtil 日志工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#StringUtil-字符串工具"><span class="nav-number">4.</span> <span class="nav-text">StringUtil 字符串工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GsonUtil-Gson工具"><span class="nav-number">5.</span> <span class="nav-text">GsonUtil Gson工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JsonUtil-Json工具"><span class="nav-number">6.</span> <span class="nav-text">JsonUtil Json工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DeviceUtil-设备信息工具"><span class="nav-number">7.</span> <span class="nav-text">DeviceUtil  设备信息工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AppUtils-APP工具类"><span class="nav-number">8.</span> <span class="nav-text">AppUtils   APP工具类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BitmapUtil-bitmap的工具类"><span class="nav-number">9.</span> <span class="nav-text">BitmapUtil bitmap的工具类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NetUtils-网络工具"><span class="nav-number">10.</span> <span class="nav-text">NetUtils 网络工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SystemUtils-系统工具"><span class="nav-number">11.</span> <span class="nav-text">SystemUtils 系统工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FileUtil-文件工具类"><span class="nav-number">12.</span> <span class="nav-text">FileUtil  文件工具类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VerificationUtil-验证工具类"><span class="nav-number">13.</span> <span class="nav-text">VerificationUtil  验证工具类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ZipUtil-压缩文档相关的工具类"><span class="nav-number">14.</span> <span class="nav-text">ZipUtil 压缩文档相关的工具类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WindowUtil-与屏幕相关的工具类"><span class="nav-number">15.</span> <span class="nav-text">WindowUtil 与屏幕相关的工具类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ValidUtil-提供一些对象有效性校验封装类"><span class="nav-number">16.</span> <span class="nav-text">ValidUtil 提供一些对象有效性校验封装类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#StreamUtil-流相关的操作方法封装"><span class="nav-number">17.</span> <span class="nav-text">StreamUtil 流相关的操作方法封装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EncryptUtil-常用加密工具类"><span class="nav-number">18.</span> <span class="nav-text">EncryptUtil　常用加密工具类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ClassUtil-反射相关的一些工具类"><span class="nav-number">19.</span> <span class="nav-text">ClassUtil 反射相关的一些工具类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ChinesUtil-中文相关的操作封装类"><span class="nav-number">20.</span> <span class="nav-text">ChinesUtil 中文相关的操作封装类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CharsetUtil-编码相关的封装类"><span class="nav-number">21.</span> <span class="nav-text">CharsetUtil 编码相关的封装类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SingletonUtil-单例工具封装类"><span class="nav-number">22.</span> <span class="nav-text">SingletonUtil　单例工具封装类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ResourceUtil-获取-Assets，Raw-文件封装类"><span class="nav-number">23.</span> <span class="nav-text">ResourceUtil 获取 Assets，Raw 文件封装类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ScreenUtil-用单位转换的辅助类"><span class="nav-number">24.</span> <span class="nav-text">ScreenUtil 用单位转换的辅助类</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xybCoder</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">本站访客数<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人次</span>
+  
+
+  
+    <span class="site-pv">本站总访问量<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"xybcoder"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      
+      <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+      <script src="/js/src/hook-duoshuo.js"></script>
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,861 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android Translucent Bars," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="最近在知乎看到一个关于“什么叫沉浸式状态栏”问题，结合网上资料和知乎上一些回答，决定搞清他们的概念，同时研究了一下透明状态栏（注意不是沉浸式状态栏）,同时看到一篇已经很完美的博客了，原文出处：Android-transulcent-status-bar
+参考文章：
+什么叫沉浸式状态栏
+由沉浸式状态栏引发的血案
+Translucent System Bar 的最佳实践
+该使用 fitsSystemW">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android Translucent Bars">
+<meta property="og:url" content="http://yoursite.com/2016/04/03/Android Translucent Bars/index.html">
+<meta property="og:site_name" content="xybCoder博客">
+<meta property="og:description" content="最近在知乎看到一个关于“什么叫沉浸式状态栏”问题，结合网上资料和知乎上一些回答，决定搞清他们的概念，同时研究了一下透明状态栏（注意不是沉浸式状态栏）,同时看到一篇已经很完美的博客了，原文出处：Android-transulcent-status-bar
+参考文章：
+什么叫沉浸式状态栏
+由沉浸式状态栏引发的血案
+Translucent System Bar 的最佳实践
+该使用 fitsSystemW">
+<meta property="og:image" content="http://yoursite.com/images/fullScreen.png">
+<meta property="og:image" content="http://yoursite.com/images/Toolbar.png">
+<meta property="og:updated_time" content="2016-04-03T16:02:14.932Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android Translucent Bars">
+<meta name="twitter:description" content="最近在知乎看到一个关于“什么叫沉浸式状态栏”问题，结合网上资料和知乎上一些回答，决定搞清他们的概念，同时研究了一下透明状态栏（注意不是沉浸式状态栏）,同时看到一篇已经很完美的博客了，原文出处：Android-transulcent-status-bar
+参考文章：
+什么叫沉浸式状态栏
+由沉浸式状态栏引发的血案
+Translucent System Bar 的最佳实践
+该使用 fitsSystemW">
+<meta name="twitter:image" content="http://yoursite.com/images/fullScreen.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 6263412572838430000,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Android Translucent Bars | xybCoder博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?2ffc178452e1fcf54c288f14f8c972a1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">xybCoder博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-android">
+          <a href="/ANDROID" rel="section">
+            
+            Android开源库
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-ios">
+          <a href="/IOS" rel="section">
+            
+            IOS开源库
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Android Translucent Bars
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-03T20:54:19+08:00" content="2016-04-03">
+              2016-04-03
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/03/Android Translucent Bars/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/03/Android Translucent Bars/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv">本文总阅读量
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近在知乎看到一个关于“什么叫沉浸式状态栏”问题，结合网上资料和知乎上一些回答，决定搞清他们的概念，同时研究了一下透明状态栏（注意不是沉浸式状态栏）,同时看到一篇已经很完美的博客了，原文出处：<a href="http://niorgai.github.io/2016/03/20/Android-transulcent-status-bar/" target="_blank" rel="external">Android-transulcent-status-bar</a></p>
+<h1 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a>参考文章：</h1><ol>
+<li><a href="http://www.zhihu.com/question/27024901" target="_blank" rel="external">什么叫沉浸式状态栏</a></li>
+<li><a href="http://www.jianshu.com/p/140be70b84cd?utm_source=tuicool&amp;utm_medium=referral" target="_blank" rel="external">由沉浸式状态栏引发的血案</a></li>
+<li><a href="http://www.jianshu.com/p/0acc12c29c1b" target="_blank" rel="external">Translucent System Bar 的最佳实践</a></li>
+<li><a href="http://blog.chengyunfeng.com/?p=905#ixzz43Roc61no" target="_blank" rel="external">该使用 fitsSystemWindows 了！</a></li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>全屏( ContentView 可以进入状态栏)</th>
+<th>非全屏 ( ContentView 与状态栏分离, 状态栏直接着色)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="/images/fullScreen.png" alt="icon"></td>
+<td><img src="/images/Toolbar.png" alt="icon"></td>
+</tr>
+</tbody>
+</table>
+<p>先定义几个名词:</p>
+<ol>
+<li>全屏模式: 左边图所示.</li>
+<li>着色模式: 右边图所示.</li>
+<li>ContentView: activity.findViewById(Window.ID_ANDROID_CONTENT) 获取的<br>View , 即 setContentView 方法所设置的 View, 实质为 FrameLayout.</li>
+<li>ContentParent: ContentView 的 parent , 实质为 LinearLayout.</li>
+<li>ChildView: ContentView 的第一个子 View ,即布局文件中的 layout .</li>
+</ol>
+<p>再介绍一下相关的函数:</p>
+<ol>
+<li>fitsSystemWindows, 该属性可以设置是否为系统 View 预留出空间, 当设置为 true 时,会预留出状态栏的空间.</li>
+<li>ContentView, 实质为 ContentFrameLayout, 但是重写了 dispatchFitSystemWindows方法, 所以对其设置 fitsSystemWindows 无效.</li>
+<li>ContentParent, 实质为 FitWindowsLinearLayout, 里面第一个 View 是ViewStubCompat, 如果主题没有设置 title ,它就不会 inflate .第二个 View 就是 ContentView.</li>
+</ol>
+<h1 id="5-0以上的处理"><a href="#5-0以上的处理" class="headerlink" title="5.0以上的处理:"></a>5.0以上的处理:</h1><p>自5.0引入 Material Design ,状态栏对开发者更加直接,可以直接调用 setStatusBarColor 来设置状态栏的颜色.</p>
+<h2 id="全屏模式"><a href="#全屏模式" class="headerlink" title="全屏模式:"></a>全屏模式:</h2><figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Window</span> <span class="built_in">window</span> = activity.getWindow();</span><br><span class="line"><span class="comment">//设置透明状态栏,这样才能让 ContentView 向上</span></span><br><span class="line"><span class="built_in">window</span>.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS); </span><br><span class="line"></span><br><span class="line"><span class="comment">//需要设置这个 flag 才能调用 setStatusBarColor 来设置状态栏颜色</span></span><br><span class="line"><span class="built_in">window</span>.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); </span><br><span class="line"><span class="comment">//设置状态栏颜色</span></span><br><span class="line"><span class="built_in">window</span>.setStatusBarColor(statusColor);</span><br><span class="line"></span><br><span class="line">ViewGroup mContentView = (ViewGroup) activity.findViewById(<span class="built_in">Window</span>.ID_ANDROID_CONTENT);</span><br><span class="line"><span class="built_in">View</span> mChildView = mContentView.getChildAt(<span class="number">0</span>);</span><br><span class="line"><span class="keyword">if</span> (mChildView != <span class="built_in">null</span>) &#123;</span><br><span class="line">    <span class="comment">//注意不是设置 ContentView 的 FitsSystemWindows, 而是设置 ContentView 的第一个子 View . 使其不为系统 View 预留空间.</span></span><br><span class="line">    ViewCompat.setFitsSystemWindows(mChildView, false);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="着色模式"><a href="#着色模式" class="headerlink" title="着色模式:"></a>着色模式:</h2><figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Window</span> <span class="built_in">window</span> = activity.getWindow();</span><br><span class="line"><span class="comment">//取消设置透明状态栏,使 ContentView 内容不再覆盖状态栏</span></span><br><span class="line"><span class="built_in">window</span>.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS); </span><br><span class="line"></span><br><span class="line"><span class="comment">//需要设置这个 flag 才能调用 setStatusBarColor 来设置状态栏颜色</span></span><br><span class="line"><span class="built_in">window</span>.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS); </span><br><span class="line"><span class="comment">//设置状态栏颜色</span></span><br><span class="line"><span class="built_in">window</span>.setStatusBarColor(statusColor);</span><br><span class="line"></span><br><span class="line">ViewGroup mContentView = (ViewGroup) activity.findViewById(<span class="built_in">Window</span>.ID_ANDROID_CONTENT);</span><br><span class="line"><span class="built_in">View</span> mChildView = mContentView.getChildAt(<span class="number">0</span>);</span><br><span class="line"><span class="keyword">if</span> (mChildView != <span class="built_in">null</span>) &#123;</span><br><span class="line">    <span class="comment">//注意不是设置 ContentView 的 FitsSystemWindows, 而是设置 ContentView 的第一个子 View . 预留出系统 View 的空间.</span></span><br><span class="line">    ViewCompat.setFitsSystemWindows(mChildView, true);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="4-4-5-0的处理"><a href="#4-4-5-0的处理" class="headerlink" title="4.4-5.0的处理:"></a>4.4-5.0的处理:</h1><p>4.4-5.0因为没有直接的 API 可以调用,需要自己兼容处理,网上的解决方法基本都是创建一下高度为状态栏的 View ,通过设置这个 View 的背景色来模拟状态栏. 这里我尝试了三种方法来兼容处理.</p>
+<p><strong>方法1: 向 ContentView 添加假 View , 设置 ChildView 的 marginTop 属性来模拟 fitsSystemWindows .</strong></p>
+<h2 id="全屏模式-1"><a href="#全屏模式-1" class="headerlink" title="全屏模式:"></a>全屏模式:</h2><figure class="highlight hsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">Window window = activity.getWindow()<span class="comment">;</span></span><br><span class="line">ViewGroup mContentView = (ViewGroup) activity.findViewById(Window.ID_ANDROID_CONTENT)<span class="comment">;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//首先使 ChildView 不预留空间</span></span><br><span class="line">View mChildView = mContentView.getChildAt(<span class="number">0</span>)<span class="comment">;</span></span><br><span class="line"><span class="keyword">if</span> (mChildView != null) &#123;</span><br><span class="line">    ViewCompat.setFitsSystemWindows(mChildView, false)<span class="comment">;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> statusBarHeight = getStatusBarHeight(activity)<span class="comment">;</span></span><br><span class="line"><span class="comment">//需要设置这个 flag 才能设置状态栏</span></span><br><span class="line">window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)<span class="comment">;</span></span><br><span class="line"><span class="comment">//避免多次调用该方法时,多次移除了 View</span></span><br><span class="line"><span class="keyword">if</span> (mChildView != null &amp;&amp; mChildView.getLayoutParams() != null &amp;&amp; mChildView.getLayoutParams().height == statusBarHeight) &#123;</span><br><span class="line">    <span class="comment">//移除假的 View.</span></span><br><span class="line">    mContentView.removeView(mChildView)<span class="comment">;</span></span><br><span class="line">    mChildView = mContentView.getChildAt(<span class="number">0</span>)<span class="comment">;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (mChildView != null) &#123;</span><br><span class="line">    FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) mChildView.getLayoutParams()<span class="comment">;</span></span><br><span class="line">    <span class="comment">//清除 ChildView 的 marginTop 属性</span></span><br><span class="line">    <span class="keyword">if</span> (lp != null &amp;&amp; lp.topMargin &gt;= statusBarHeight) &#123;</span><br><span class="line">        lp.topMargin -= statusBarHeight<span class="comment">;</span></span><br><span class="line">        mChildView.setLayoutParams(lp)<span class="comment">;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="着色模式-1"><a href="#着色模式-1" class="headerlink" title="着色模式:"></a>着色模式:</h2><figure class="highlight hsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Window window = activity.getWindow()<span class="comment">;</span></span><br><span class="line">ViewGroup mContentView = (ViewGroup) activity.findViewById(Window.ID_ANDROID_CONTENT)<span class="comment">;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//First translucent status bar.</span></span><br><span class="line">window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)<span class="comment">;</span></span><br><span class="line"><span class="keyword">int</span> statusBarHeight = getStatusBarHeight(activity)<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">View mChildView = mContentView.getChildAt(<span class="number">0</span>)<span class="comment">;</span></span><br><span class="line"><span class="keyword">if</span> (mChildView != null) &#123;</span><br><span class="line">    FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) mChildView.getLayoutParams()<span class="comment">;</span></span><br><span class="line">    <span class="comment">//如果已经为 ChildView 设置过了 marginTop, 再次调用时直接跳过</span></span><br><span class="line">    <span class="keyword">if</span> (lp != null &amp;&amp; lp.topMargin &lt; statusBarHeight &amp;&amp; lp.height != statusBarHeight) &#123;</span><br><span class="line">        <span class="comment">//不预留系统空间</span></span><br><span class="line">        ViewCompat.setFitsSystemWindows(mChildView, false)<span class="comment">; </span></span><br><span class="line">        lp.topMargin += statusBarHeight<span class="comment">;</span></span><br><span class="line">        mChildView.setLayoutParams(lp)<span class="comment">;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">View statusBarView = mContentView.getChildAt(<span class="number">0</span>)<span class="comment">;</span></span><br><span class="line"><span class="keyword">if</span> (statusBarView != null &amp;&amp; statusBarView.getLayoutParams() != null &amp;&amp; statusBarView.getLayoutParams().height == statusBarHeight) &#123;</span><br><span class="line">    <span class="comment">//避免重复调用时多次添加 View</span></span><br><span class="line">    statusBarView.setBackgroundColor(statusColor)<span class="comment">;</span></span><br><span class="line">    <span class="keyword">return</span><span class="comment">;</span></span><br><span class="line">&#125;</span><br><span class="line">statusBarView = new View(activity)<span class="comment">;</span></span><br><span class="line">ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, statusBarHeight)<span class="comment">;</span></span><br><span class="line">statusBarView.setBackgroundColor(statusColor)<span class="comment">;</span></span><br><span class="line"><span class="comment">//向 ContentView 中添加假 View</span></span><br><span class="line">mContentView.addView(statusBarView, <span class="number">0</span>, lp)<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p><strong>方法2: 向 ContentParent 添加假 View ,设置 ContentView 和 ChildView 的 fitsSystemWindows.</strong></p>
+<h2 id="全屏模式-2"><a href="#全屏模式-2" class="headerlink" title="全屏模式:"></a>全屏模式:</h2><figure class="highlight hsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Window window = activity.getWindow()<span class="comment">;</span></span><br><span class="line">window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">ViewGroup mContentView = (ViewGroup) activity.findViewById(Window.ID_ANDROID_CONTENT)<span class="comment">;</span></span><br><span class="line">ViewGroup mContentParent = (ViewGroup) mContentView.getParent()<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">View statusBarView = mContentParent.getChildAt(<span class="number">0</span>)<span class="comment">;</span></span><br><span class="line"><span class="keyword">if</span> (statusBarView != null &amp;&amp; statusBarView.getLayoutParams() != null &amp;&amp; statusBarView.getLayoutParams().height == getStatusBarHeight(activity)) &#123;</span><br><span class="line">    <span class="comment">//移除假的 View</span></span><br><span class="line">    mContentParent.removeView(statusBarView)<span class="comment">;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//ContentView 不预留空间</span></span><br><span class="line"><span class="keyword">if</span> (mContentParent.getChildAt(<span class="number">0</span>) != null) &#123;</span><br><span class="line">    ViewCompat.setFitsSystemWindows(mContentParent.getChildAt(<span class="number">0</span>), false)<span class="comment">;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//ChildView 不预留空间</span></span><br><span class="line">View mChildView = mContentView.getChildAt(<span class="number">0</span>)<span class="comment">;</span></span><br><span class="line"><span class="keyword">if</span> (mChildView != null) &#123;</span><br><span class="line">    ViewCompat.setFitsSystemWindows(mChildView, false)<span class="comment">;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="着色模式-会有一条黑线-无法解决"><a href="#着色模式-会有一条黑线-无法解决" class="headerlink" title="着色模式(会有一条黑线,无法解决):"></a>着色模式(会有一条黑线,无法解决):</h2><figure class="highlight hsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">Window window = activity.getWindow()<span class="comment">;</span></span><br><span class="line">window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">ViewGroup mContentView = (ViewGroup) activity.findViewById(Window.ID_ANDROID_CONTENT)<span class="comment">;</span></span><br><span class="line">ViewGroup mContentParent = (ViewGroup) mContentView.getParent()<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">View statusBarView = mContentParent.getChildAt(<span class="number">0</span>)<span class="comment">;</span></span><br><span class="line"><span class="keyword">if</span> (statusBarView != null &amp;&amp; statusBarView.getLayoutParams() != null &amp;&amp; statusBarView.getLayoutParams().height == getStatusBarHeight(activity)) &#123;</span><br><span class="line">    <span class="comment">//避免重复调用时多次添加 View</span></span><br><span class="line">    statusBarView.setBackgroundColor(statusColor)<span class="comment">;</span></span><br><span class="line">    <span class="keyword">return</span><span class="comment">;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建一个假的 View, 并添加到 ContentParent</span></span><br><span class="line">statusBarView = new View(activity)<span class="comment">;</span></span><br><span class="line">ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,</span><br><span class="line">        getStatusBarHeight(activity))<span class="comment">;</span></span><br><span class="line">statusBarView.setBackgroundColor(statusColor)<span class="comment">;</span></span><br><span class="line">mContentParent.addView(statusBarView, <span class="number">0</span>, lp)<span class="comment">;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//ChildView 不需要预留系统空间</span></span><br><span class="line">View mChildView = mContentView.getChildAt(<span class="number">0</span>)<span class="comment">;</span></span><br><span class="line"><span class="keyword">if</span> (mChildView != null) &#123;</span><br><span class="line">    ViewCompat.setFitsSystemWindows(mChildView, false)<span class="comment">;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>方法3:向 ContentView 添加假 View , 设置 ChildView 的 fitsSystemWindows.</strong></p>
+<h2 id="全屏模式-3"><a href="#全屏模式-3" class="headerlink" title="全屏模式:"></a>全屏模式:</h2><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Window <span class="built_in">window</span> = activity.getWindow();</span><br><span class="line"><span class="built_in">window</span>.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);</span><br><span class="line"></span><br><span class="line">ViewGroup mContentView = (ViewGroup) activity.findViewById(Window.ID_ANDROID_CONTENT);</span><br><span class="line">View statusBarView = mContentView.getChildAt(<span class="number">0</span>);</span><br><span class="line"><span class="comment">//移除假的 View</span></span><br><span class="line"><span class="keyword">if</span> (statusBarView != <span class="keyword">null</span> &amp;&amp; statusBarView.getLayoutParams() != <span class="keyword">null</span> &amp;&amp; statusBarView.getLayoutParams().height == getStatusBarHeight(activity)) &#123;</span><br><span class="line">    mContentView.removeView(statusBarView);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//不预留空间</span></span><br><span class="line"><span class="keyword">if</span> (mContentView.getChildAt(<span class="number">0</span>) != <span class="keyword">null</span>) &#123;</span><br><span class="line">    ViewCompat.setFitsSystemWindows(mContentView.getChildAt(<span class="number">0</span>), <span class="keyword">false</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="着色模式-2"><a href="#着色模式-2" class="headerlink" title="着色模式:"></a>着色模式:</h2><figure class="highlight hsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">Window window = activity.getWindow()<span class="comment">;</span></span><br><span class="line">window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">ViewGroup mContentView = (ViewGroup) activity.findViewById(Window.ID_ANDROID_CONTENT)<span class="comment">;</span></span><br><span class="line"><span class="keyword">int</span> statusBarHeight = getStatusBarHeight(activity)<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">View mTopView = mContentView.getChildAt(<span class="number">0</span>)<span class="comment">;</span></span><br><span class="line"><span class="keyword">if</span> (mTopView != null &amp;&amp; mTopView.getLayoutParams() != null &amp;&amp; mTopView.getLayoutParams().height == statusBarHeight) &#123;</span><br><span class="line">    <span class="comment">//避免重复添加 View</span></span><br><span class="line">    mTopView.setBackgroundColor(statusColor)<span class="comment">;</span></span><br><span class="line">    <span class="keyword">return</span><span class="comment">;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//使 ChildView 预留空间</span></span><br><span class="line"><span class="keyword">if</span> (mTopView != null) &#123;</span><br><span class="line">    ViewCompat.setFitsSystemWindows(mTopView, true)<span class="comment">;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//添加假 View</span></span><br><span class="line">mTopView = new View(activity)<span class="comment">;</span></span><br><span class="line">ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, statusBarHeight)<span class="comment">;</span></span><br><span class="line">mTopView.setBackgroundColor(statusColor)<span class="comment">;</span></span><br><span class="line">mContentView.addView(mTopView, <span class="number">0</span>, lp)<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p><strong>其实全屏模式在三种模式下实现都是一样的,主要是着色模式实现不同.</strong></p>
+<h2 id="对比一下三种着色模式实现的方式"><a href="#对比一下三种着色模式实现的方式" class="headerlink" title="对比一下三种着色模式实现的方式:"></a>对比一下三种着色模式实现的方式:</h2><table>
+<thead>
+<tr>
+<th>–</th>
+<th>方法1</th>
+<th>方法2</th>
+<th>方法3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>原理</td>
+<td>向 ContentView 中添加假 View, 然后利用 ChildView 的 marginTop 属性来模拟 fitsSystemWindows ,主要是通过修改 marginTop 的值可以在全屏模式和着色模式之间切换</td>
+<td>因为 ParentView 的实质是一个 LinearLayout , 可以再其顶部添加 View</td>
+<td>向 ContentView 中添加假 View, 然后利用 ChildView 的 fitsSystemWindows 属性来控制位置, 但是实现缺陷就是不能随时切换两种模式</td>
+</tr>
+<tr>
+<td>缺陷</td>
+<td>改变了 ChildView 的 marginTop 值</td>
+<td>着色模式下,会像由沉浸式状态栏引发的血案中一样出现一条黑线</td>
+<td>不能在不重启 Activity 的情况下切换模式</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android-Translucent-Bars/" rel="tag">#Android Translucent Bars</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/04/03/标签管理/" rel="next" title="标签管理">
+                <i class="fa fa-chevron-left"></i> 标签管理
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/04/03/Android项目开发规范/" rel="prev" title="Android 项目开发规范">
+                Android 项目开发规范 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  <p>热评文章</p>
+  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/04/03/Android Translucent Bars/"
+           data-title="Android Translucent Bars" data-url="http://yoursite.com/2016/04/03/Android Translucent Bars/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="xybCoder" />
+          <p class="site-author-name" itemprop="name">xybCoder</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">37</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xybCoder" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/p/1005053745997724/home?is_all=1" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element">
+            <div class="links-of-blogroll-title">
+              <i class="fa fa-globe fa-fw"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.woyaovpn.net/index.shtml/" title="51VPN" target="_blank">51VPN</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://androiddevtools.cn/" title="DevTools" target="_blank">DevTools</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.materialpalette.com/" title="MDColor" target="_blank">MDColor</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.daimajia.com/" title="代码家" target="_blank">代码家</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://github.com/lzyzsd/" title="hi大头鬼hi" target="_blank">hi大头鬼hi</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.zhaiyifan.cn/" title="翟一帆" target="_blank">翟一帆</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://liaohuqiu.net/" title="秋百万" target="_blank">秋百万</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://drakeet.me/" title="Drakeet博客" target="_blank">Drakeet博客</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.trinea.cn/" title="Trinea" target="_blank">Trinea</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://p.codekk.com/" title="CodeKK" target="_blank">CodeKK</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/eclipsexys/" title="Tomcat的猫" target="_blank">Tomcat的猫</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.race604.com/" title="android笔记" target="_blank">android笔记</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.androidperformance.com/" title="Gracker" target="_blank">Gracker</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://yanghui.name/" title="杨辉" target="_blank">杨辉</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://hujiaweibujidao.github.io/" title="五道口宅男" target="_blank">五道口宅男</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/singwhatiwanna/" title="任玉刚博客" target="_blank">任玉刚博客</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.fangjie.info/" title="方杰博客" target="_blank">方杰博客</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.isming.me/" title="码农明明桑" target="_blank">码农明明桑</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文章："><span class="nav-number">1.</span> <span class="nav-text">参考文章：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-0以上的处理"><span class="nav-number">2.</span> <span class="nav-text">5.0以上的处理:</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#全屏模式"><span class="nav-number">2.1.</span> <span class="nav-text">全屏模式:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#着色模式"><span class="nav-number">2.2.</span> <span class="nav-text">着色模式:</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-4-5-0的处理"><span class="nav-number">3.</span> <span class="nav-text">4.4-5.0的处理:</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#全屏模式-1"><span class="nav-number">3.1.</span> <span class="nav-text">全屏模式:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#着色模式-1"><span class="nav-number">3.2.</span> <span class="nav-text">着色模式:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#全屏模式-2"><span class="nav-number">3.3.</span> <span class="nav-text">全屏模式:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#着色模式-会有一条黑线-无法解决"><span class="nav-number">3.4.</span> <span class="nav-text">着色模式(会有一条黑线,无法解决):</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#全屏模式-3"><span class="nav-number">3.5.</span> <span class="nav-text">全屏模式:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#着色模式-2"><span class="nav-number">3.6.</span> <span class="nav-text">着色模式:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对比一下三种着色模式实现的方式"><span class="nav-number">3.7.</span> <span class="nav-text">对比一下三种着色模式实现的方式:</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xybCoder</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">本站访客数<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人次</span>
+  
+
+  
+    <span class="site-pv">本站总访问量<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"xybcoder"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      
+      <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+      <script src="/js/src/hook-duoshuo.js"></script>
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+
+</body>
+</html>
