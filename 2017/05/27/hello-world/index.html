@@ -75,7 +75,7 @@
     </p>
   <p class="article-time">
     <time datetime="2017-05-26T22:39:16.253Z" itemprop="datePublished">May 27 2017</time>
-    Updated:<time datetime="2017-06-03T06:31:46.686Z" itemprop="dateModified">Jun 3 2017</time>
+    Updated:<time datetime="2017-06-03T06:35:32.835Z" itemprop="dateModified">Jun 3 2017</time>
     
   </p>
 </header>
@@ -88,7 +88,8 @@
 		</div>
 		
 		<p>The main purpose of Dependency Injection pattern which is implemented by Dagger 2 is that DI separates the creation of a client’s dependencies from the client’s behavior. In practice it means that all calls of new operator, newInstance() and others shouldn’t be invoked in places other than Dagger’s Modules.</p>
-<h3 id="The-beginning"><a href="#The-beginning" class="headerlink" title="The beginning"></a>The beginning</h3><p>Imagine that you have the recycleview which has to retrive the data content from network (or disk) only when it is necessary to show<br>the items inside itself.<br>Here you can see starting code base for our example. For me this is how the first iteration of implemented Adapter looks like in most cases.</p>
+<h3 id="The-beginning"><a href="#The-beginning" class="headerlink" title="The beginning"></a>The beginning</h3><p>Imagine that you have the recycleview which has to retrive the data content from network (or disk) only when it is necessary to show the items inside itself.<br>Here you can see starting code base for our example. For me this is how the first iteration of implemented Adapter looks like in most cases.</p>
+<hr>
 <h2 id="NewsRecyclerViewAdapter"><a href="#NewsRecyclerViewAdapter" class="headerlink" title="NewsRecyclerViewAdapter"></a>NewsRecyclerViewAdapter</h2><p>public class NewsRecyclerViewAdapter extends RecyclerView.Adapter<newviewholder> {</newviewholder></p>
 <pre><code>private ArrayList&lt;String&gt; news = new ArrayList&lt;&gt;();
 
@@ -147,6 +148,7 @@ public int getItemCount() {
 </code></pre><p>}</p>
 <hr>
 <h3 id="Explaination"><a href="#Explaination" class="headerlink" title="Explaination"></a>Explaination</h3><p>Here we can see the code above, the injection happen whenever there is a new viewholder being created, which means the presenter only attached to the view holder which can always use the right view (ViewHolder) to show and save the memory assumption.</p>
+<p>Inside AdapterModule implementation, make sure you have the presenter or any model layer being inialized to make the model and controller works.</p>
 <hr>
 <p>More info: <a href="https://github.com/iammini5/News" target="_blank" rel="external">github</a></p>
   
