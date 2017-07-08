@@ -75,7 +75,7 @@
     </p>
   <p class="article-time">
     <time datetime="2017-05-26T22:39:16.253Z" itemprop="datePublished">May 27 2017</time>
-    Updated:<time datetime="2017-07-08T04:58:49.438Z" itemprop="dateModified">Jul 8 2017</time>
+    Updated:<time datetime="2017-07-08T05:02:57.810Z" itemprop="dateModified">Jul 8 2017</time>
     
   </p>
 </header>
@@ -90,7 +90,62 @@
 		<p>The main purpose of Dependency Injection pattern which is implemented by Dagger 2 is that DI separates the creation of a client’s dependencies from the client’s behavior. In practice it means that all calls of new operator, newInstance() and others shouldn’t be invoked in places other than Dagger’s Modules.</p>
 <h3 id="The-beginning"><a href="#The-beginning" class="headerlink" title="The beginning"></a>The beginning</h3><p>Imagine that you have the recycleview which has to retrive the data content from network (or disk) only when it is necessary to show the items inside itself.<br>Here you can see starting code base for our example. For me this is how the first iteration of implemented Adapter looks like in most cases.</p>
 <hr>
-<h2 id="NewsRecyclerViewAdapter"><a href="#NewsRecyclerViewAdapter" class="headerlink" title="NewsRecyclerViewAdapter"></a>NewsRecyclerViewAdapter</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div></pre></td><td class="code"><pre><div class="line">public class NewsRecyclerViewAdapter extends RecyclerView.Adapter&lt;NewViewHolder&gt; &#123;</div><div class="line"></div><div class="line">    private ArrayList&lt;String&gt; news = new ArrayList&lt;&gt;();</div><div class="line"></div><div class="line">    private PublishSubject&lt;Item&gt; notify = PublishSubject.create();</div><div class="line"></div><div class="line">    private NewsFragment newsFragment;</div><div class="line"></div><div class="line">    @Inject</div><div class="line">    public NewsBasePresenter presenter;</div><div class="line"></div><div class="line">    @Inject</div><div class="line">    public NewsRecyclerViewAdapter(NewsFragment newsFragment) &#123;</div><div class="line">        this.newsFragment = newsFragment;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void <span class="built_in">set</span>News(String[] news) &#123;</div><div class="line">        this.news = new ArrayList&lt;&gt;(Arrays.asList(news));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void addMoreNews(String[] news) &#123;</div><div class="line">        this.news.addAll(new ArrayList&lt;&gt;(Arrays.asList(news)));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public NewViewHolder onCreateViewHolder(ViewGroup parent, int viewType) &#123;</div><div class="line">        View view = LayoutInflater.from(parent.getContext())</div><div class="line">                .inflate(R.layout.layout_item, parent, <span class="literal">false</span>);</div><div class="line"></div><div class="line">        NewViewHolder newViewHolder = new NewViewHolder(view );</div><div class="line"></div><div class="line">        newsFragment.getDependenciesModules()</div><div class="line">                .plus(new AdapterModule(newViewHolder))</div><div class="line">                .inject(newViewHolder);</div><div class="line"></div><div class="line">        <span class="built_in">return</span> newViewHolder;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onBindViewHolder(final NewViewHolder holder, int position) &#123;</div><div class="line"></div><div class="line">        final String newIndex = news.get(position);</div><div class="line">        holder.presenter.fetchData(newIndex);</div><div class="line">        RxView.clicks(holder.view)</div><div class="line">                .map(aVoid -&gt; holder.item)</div><div class="line">                .subscribe(notify::onNext);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public Observable&lt;Item&gt; <span class="function"><span class="title">asObservable</span></span>() &#123;</div><div class="line">        <span class="built_in">return</span> notify.asObservable();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public int <span class="function"><span class="title">getItemCount</span></span>() &#123;</div><div class="line">        <span class="built_in">return</span> news.size();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="NewsRecyclerViewAdapter"><a href="#NewsRecyclerViewAdapter" class="headerlink" title="NewsRecyclerViewAdapter"></a>NewsRecyclerViewAdapter</h2><p>public class NewsRecyclerViewAdapter extends RecyclerView.Adapter<newviewholder> {</newviewholder></p>
+<pre><code>private ArrayList&lt;String&gt; news = new ArrayList&lt;&gt;();
+
+private PublishSubject&lt;Item&gt; notify = PublishSubject.create();
+
+private NewsFragment newsFragment;
+
+@Inject
+public NewsBasePresenter presenter;
+
+@Inject
+public NewsRecyclerViewAdapter(NewsFragment newsFragment) {
+    this.newsFragment = newsFragment;
+}
+
+public void setNews(String[] news) {
+    this.news = new ArrayList&lt;&gt;(Arrays.asList(news));
+}
+
+public void addMoreNews(String[] news) {
+    this.news.addAll(new ArrayList&lt;&gt;(Arrays.asList(news)));
+}
+
+@Override
+public NewViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    View view = LayoutInflater.from(parent.getContext())
+            .inflate(R.layout.layout_item, parent, false);
+
+    NewViewHolder newViewHolder = new NewViewHolder(view );
+
+    newsFragment.getDependenciesModules()
+            .plus(new AdapterModule(newViewHolder))
+            .inject(newViewHolder);
+
+    return newViewHolder;
+}
+
+@Override
+public void onBindViewHolder(final NewViewHolder holder, int position) {
+
+    final String newIndex = news.get(position);
+    holder.presenter.fetchData(newIndex);
+    RxView.clicks(holder.view)
+            .map(aVoid -&gt; holder.item)
+            .subscribe(notify::onNext);
+}
+
+public Observable&lt;Item&gt; asObservable() {
+    return notify.asObservable();
+}
+
+@Override
+public int getItemCount() {
+    return news.size();
+}
+</code></pre><p>}</p>
 <hr>
 <h3 id="Explaination"><a href="#Explaination" class="headerlink" title="Explaination"></a>Explaination</h3><p>Here we can see the code above, the injection happen whenever there is a new viewholder being created, which means the presenter only attached to the view holder which can always use the right view (ViewHolder) to show and save the memory assumption.</p>
 <p>Inside AdapterModule implementation, make sure you have the presenter or any model layer being inialized to make the model and controller works.</p>
